@@ -35,4 +35,4 @@ Figure 2F shows that the complete simulated data produce a three-year covariate-
 
 ## Code and Data Availability
 
-Code that simulated data and produced the results is posted to this GitHub page. Moreover, the specific simulated dataset is also posted. Simulation and analysis are provided in a single R script. This project demonstrates how to simulate synthetic data with truncation by death and how to analyze it depending on research goal.
+A single R script that simulated and analyzed the data and produced the results is posted to this GitHub page (survival-bias-simulate-analyze.R). The specific simulated dataset analyzed in this project is also posted (Truncation_By_Death.csv). This project demonstrated how to simulate synthetic data with truncation by death and how to analyze it depending on research goal.

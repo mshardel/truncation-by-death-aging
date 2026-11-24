@@ -5,7 +5,7 @@ Simulation of a synthetic longitudinal cohort of older adults with truncation by
 
 Data were simulated in accordance with the following directed acyclic graph:
 
-![Fig1](C:/Users/mshardell/OneDrive - University of Maryland School of Medicine/Desktop/GS Drive/nature aging/Aging by the Numbers/survival bias/DAG-fig1.pdf){width=50%}
+![Fig1](C:/Users/mshardell/OneDrive - University of Maryland School of Medicine/Desktop/GS Drive/nature aging/Aging by the Numbers/survival bias/DAG-fig1.png){width=50%}
 
 In the DAG, the exposure of interest is baseline new chronic kidney disease (CKD) status, and the outcome is longitudinal global cognition as measured by Teng Modified Mini-Mental State examination (Teng & Chui, 1987) (3MS; range 0-100, higher scores are better) at years one, two, and three after baseline. Confounders of the CKD-cognition relationship are pre-CKD exposure cognition (i.e., before CKD onset) and baseline age. Survival to each year (time) *t* among survivors to year *t-1* depends on CKD, age, cognition at year *t-1*, and change in cardiovascular disease ($\Delta$CVD) risk score, a factor that is affected by CKD and age and that confounds the cognition-survival relationship. 
 
@@ -31,7 +31,7 @@ This research goal answers the question “what is the association between CKD a
 
 Panel F shows that the complete simulated data produce a three-year covariate-adjusted mean 3MS difference of -15.5 (95% CI = -16.1 - -14.9) between participants with and without baseline CKD. In contrast, analysis using data from survivors produces an estimate of -18.4 (95% CI -19.1 - -17.7) (Panel G).
 
-![Fig2](C:/Users/mshardell/OneDrive - University of Maryland School of Medicine/Desktop/GS Drive/nature aging/Aging by the Numbers/survival bias/Figure2.pdf){width=50%}
+![Fig2](C:/Users/mshardell/OneDrive - University of Maryland School of Medicine/Desktop/GS Drive/nature aging/Aging by the Numbers/survival bias/Figure2.png){width=50%}
 
 ## Code and Data Availability
 

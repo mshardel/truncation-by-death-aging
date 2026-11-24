@@ -5,9 +5,9 @@ Simulation of a synthetic longitudinal cohort of older adults with truncation by
 
 Data were simulated in accordance with the following directed acyclic graph:
 
-![Fig1](figures/DAG-fig1.png)
+![Fig1](figures/DAG-fig1-for-github.png)
 
-In the DAG, the exposure of interest is baseline new chronic kidney disease (CKD) status, and the outcome is longitudinal global cognition as measured by Teng Modified Mini-Mental State examination (Teng & Chui, 1987) (3MS; range 0-100, higher scores are better) at years one, two, and three after baseline. Confounders of the CKD-cognition relationship are pre-CKD exposure cognition (i.e., before CKD onset) and baseline age. Survival to each year (time) *t* among survivors to year *t-1* depends on CKD, age, cognition at year *t-1*, and change in cardiovascular disease ($\Delta$CVD) risk score, a factor that is affected by CKD and age and that confounds the cognition-survival relationship. 
+In the DAG, the exposure of interest is baseline new chronic kidney disease (CKD) status, and the outcome is longitudinal global cognition as measured by Teng Modified Mini-Mental State examination (Teng & Chui, 1987) (3MS; range 0-100, higher scores are better) at years one, two, and three after baseline. Confounders of the CKD-cognition relationship are pre-CKD exposure cognition (i.e., before CKD onset) and baseline age. Survival to each year (time) *t* among survivors to year *t-1* depends on CKD, age, cognition at year *t-1*, and change in cardiovascular disease (&DeltaCVD) risk score, a factor that is affected by CKD and age and that confounds the cognition-survival relationship. 
 
 Data were simulated to have mean (standard deviation [SD]) pre-CKD exposure 3MS of 80.0 (1.0) for 5,000 participants (the standard screening cut-off for potential cognitive impairment), among whom 2,517 (50.3%) were simulated to have new onset CKD at baseline. Among the 2,483 simulated participants without CKD, 1,709 (68.8%) survived to the first year, 1,434 (57.8%) survived to the second year, and 1,284 (51.7%) survived to the third year. In contrast, among the 2,517 simulated participants with CKD, 901 (35.8%) survived the to the first year, 551 (21.9%) survived to the second year, and 400 (15.9%) survived to the third year. 
 

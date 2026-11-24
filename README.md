@@ -1,2 +1,38 @@
 # truncation-by-death-aging
-Simulation of a synthetic longitudinal cohort of older adults with truncation by death and analysis using multiple methods to answer different research questions.  Code, data, and results accompany the manuscript "Aging by the numbers: Truncation by death is not just missing data".
+Simulation of a synthetic longitudinal cohort of older adults with truncation by death and analysis using multiple methods to answer different research questions.  Code, data, and results accompany the manuscript "Aging by the numbers: Truncation by death is not just missing data," which is under development at *Nature Aging*.
+
+## Data Simulation 
+
+Data were simulated in accordance with the following directed acyclic graph:
+
+![Fig1](C:/Users/mshardell/OneDrive - University of Maryland School of Medicine/Desktop/GS Drive/nature aging/Aging by the Numbers/survival bias/DAG-fig1.pdf){width=50%}
+
+In the DAG, the exposure of interest is baseline new chronic kidney disease (CKD) status, and the outcome is longitudinal global cognition as measured by Teng Modified Mini-Mental State examination (Teng & Chui, 1987) (3MS; range 0-100, higher scores are better) at years one, two, and three after baseline. Confounders of the CKD-cognition relationship are pre-CKD exposure cognition (i.e., before CKD onset) and baseline age. Survival to each year (time) *t* among survivors to year *t-1* depends on CKD, age, cognition at year *t-1*, and change in cardiovascular disease ($\Delta$CVD) risk score, a factor that is affected by CKD and age and that confounds the cognition-survival relationship. 
+
+Data were simulated to have mean (standard deviation [SD]) pre-CKD exposure 3MS of 80.0 (1.0) for 5,000 participants (the standard screening cut-off for potential cognitive impairment), among whom 2,517 (50.3%) were simulated to have new onset CKD at baseline. Among the 2,483 simulated participants without CKD, 1,709 (68.8%) survived to the first year, 1,434 (57.8%) survived to the second year, and 1,284 (51.7%) survived to the third year. In contrast, among the 2,517 simulated participants with CKD, 901 (35.8%) survived the to the first year, 551 (21.9%) survived to the second year, and 400 (15.9%) survived to the third year. 
+
+## Research Goals and Analysis
+
+### Goal 1: Generalize estimates to survivors
+
+This research goal answers the questions “what is the average cognition among survivors, and how does it differ by baseline new CKD status?”. This question can be answered using independence estimating equations (IEE). These are a type of generalized estimating equations in which the working correlation structure is specified to be independent among repeated observations of the same participant. This specification is important to ensure that analyses are only conditioned on vital status, not survival time. One way to implement IEE and automatically obtain robust standard errors is to use the survey package. IEE was implemented by regressing follow-up 3MS on time, CKD status, time-by-CKD interaction, pre-CKD exposure 3MS, and baseline age. Note that $\Delta$CVD risk score was not included in this analysis, because it occurred after the exposure, and therefore is not a confounder.
+
+Panel A in the Figure below shows that the complete simulated data produced three-year covariate-adjusted mean 3MS of 52.7 (95% confidence interval [CI]=52.4-53.0) and 68.2 (95% CI=67.5-68.9) among participants with and without CKD, if no death occurred, respectively (mean difference = -15.5; 95% CI = -16.3 - -14.7). In contrast, Panel B shows that survivors with CKD had a mean three-year covariate-adjusted 3MS of 61.9 (95% CI=61.3-62.5) and survivors without CKD had a mean three-year 3MS of 81.4 (95% CI=80.7-82.0), resulting in a mean difference of -19.4 (95% CI = -20.3 - -18.6). This result is explained, in part, by the CKD group having a higher mean $\Delta$CVD risk score as compared to the non-CKD group (1.2 [SD=2.2] vs -0.2 [SD=2.1]), which was associated with greater risk of death and lower 3MS scores in the simulated data.
+
+### Goal 2: Infer causality
+
+This research goal answers the question “what is the causal effect of CKD on three-year cognition among individuals who would survive regardless of CKD?”. This question can be answered by estimating survivor average causal effects (SACE) and implementing weighted (independence) estimating equations (WEE). These strategies aim to estimate a causal effect that generalizes to a principal stratum of individuals who would have survived regardless of their CKD status. Both methods can be implemented using the survey package, but with two different types of inverse probability weights (IPW) for mortality. Also, in causal inference, it is common to control for confounders using standardization, rather than simple adjustment. In this example, SACE was estimated and WEE was implemented by regressing follow-up 3MS on time, CKD status, and time-by-CKD interaction. Confounding by pre-CKD exposure 3MS and baseline age were addressed by constructing propensity scores for use as an additional IPW, which controls for confounding by standardization instead of conditioning. 
+
+Panel C in the Figure below shows that a model of complete simulated data using IPW to control for confounding produced a three-year covariate-standardized causal mean 3MS difference of -14.4 (95% CI = -15.4 - -13.3) comparing CKD to no CKD. Panel D demonstrates that the estimated three-year SACE was -20.2 (95% CI -21.5 - -19.0). The results using WEE were closer to the complete-data estimates than those from SACE, -14.1 (95% CI = -17.4 - -10.9) (Panel E). Panels C and E show that despite the weights and similar magnitude of the estimated causal effect, WEE estimates from survivors in both CKD groups were higher than respective estimates from the complete cohort. Estimated SACE in Panel D indicates that the principal stratum of participants who would have survived regardless of CKD status comprises those with progressively higher mean 3MS over time without CKD.
+
+### Goal 3: Estimate an "immortal cohort" association
+
+This research goal answers the question “what is the association between CKD and three-year cognition if no mortality occurs?”. In other words, the research goal is to estimate an association that statistically eliminates mortality. The most common strategy to estimate an "immortal cohort" association is to fit a mixed-effects model, which can be done using the nlme package. However, an important caveat is this interpretation relies on assumptions that are not satisfied per the DAG above. Specifically, mixed-effects models treat mortality the same way as missingness, and essentially assume missing at random. That is, missingness only depends on observed variables that are included in the model. However, $\Delta$ CVD risk has an effect on both missingness and mortality, but it was not included in the model because it is not a confounder. Therefore, the estimate is best interpreted as a "population average" adjusted mean difference.
+
+Panel F shows that the complete simulated data produce a three-year covariate-adjusted mean 3MS difference of -15.5 (95% CI = -16.1 - -14.9) between participants with and without baseline CKD. In contrast, analysis using data from survivors produces an estimate of -18.4 (95% CI -19.1 - -17.7) (Panel G).
+
+![Fig2](C:/Users/mshardell/OneDrive - University of Maryland School of Medicine/Desktop/GS Drive/nature aging/Aging by the Numbers/survival bias/Figure2.pdf){width=50%}
+
+## Code and Data Availability
+
+Code that simulated data and produced the results is posted to this GitHub page. Moreover, the specific simulated dataset is also posted. Simulation and analysis are provided in a single R script. This project demonstrates how to simulate synthetic data with truncation by death and how to analyze it depending on research goal.

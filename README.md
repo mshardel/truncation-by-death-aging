@@ -13,7 +13,7 @@ Data were simulated to have mean (standard deviation [SD]) pre-CKD exposure 3MS 
 
 ## Research Goals and Analysis
 
-### Goal 1: Generalize estimates to survivors
+### Goal 1: Generalize to survivors
 
 This research goal answers the questions “what is the average cognition among survivors, and how does it differ by baseline incident CKD status?”. This question can be answered using independence estimating equations (IEE). These are a type of generalized estimating equations in which the working correlation structure is specified to be independent among repeated observations of the same participant. This specification is important to ensure that analyses are only conditioned on vital status, not survival time. One way to implement IEE and automatically obtain robust standard errors is to use the survey package. IEE was implemented by regressing follow-up 3MS on time, CKD status, time-by-CKD interaction, pre-CKD exposure 3MS, and baseline age. Note that ΔCVD risk score was not included in this analysis, because it occurred after the exposure, and therefore is not a confounder.
 
@@ -25,7 +25,7 @@ This research goal answers the question “what is the causal effect of CKD on t
 
 Figure 2C in the Figure below shows that a model fit from the original simulated cohort using IPW to control for confounding produced a three-year covariate-standardized causal mean 3MS difference of -14.4 (95% CI = -15.4 - -13.3) comparing CKD to no CKD. Figure 2D demonstrates that the estimated three-year SACE was -20.2 (95% CI = -21.5 - -19.0). The results using WEE were closer to estimates from the original cohort than those from SACE, -14.1 (95% CI = -17.4 - -10.9) (Figure 2E). Figures 2C and 2E show that despite the weights and similar magnitude of the estimated causal effect, WEE estimates from survivors in both CKD groups were higher than respective estimates from the original cohort. Estimated SACE in Figure 2D indicates that the principal stratum of participants who would have survived regardless of CKD status comprises those with progressively higher mean 3MS over time without CKD.
 
-### Goal 3: Estimate an "immortal cohort" association
+### Goal 3: Estimate "immortal cohort" association
 
 This research goal answers the question “what is the association between CKD and three-year cognition if no mortality occurs?”. In other words, the research goal is to estimate an association that statistically eliminates mortality. The most common strategy to estimate an "immortal cohort" association is to fit a mixed-effects model, which can be done using the nlme package. However, an important caveat is this interpretation relies on assumptions that are not satisfied per the DAG above. Specifically, mixed-effects models treat mortality the same way as missingness, and essentially assume missing at random. That is, missingness only depends on observed variables that are included in the model. However, ΔCVD risk has an effect on both missingness and mortality, but it was not included in the model because it is not a confounder. Therefore, the estimate is best interpreted as a "population average" adjusted mean difference.
 
